@@ -4,9 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestsParams"
+        xmlns:ViewModel="clr-namespace:TestsParams.ViewModel"
+        xmlns:view="clr-namespace:TestsParams.View"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <ViewModel:ManageTestViewModel x:Name="TestManage" x:Key="Manage"/>
+
+        <DataTemplate x:Key="TestTemplate">
+            <view:TestView/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ParamTemplate">
+            <view:ParamsView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <ViewModel:ManageTestViewModel/>
+    </Window.DataContext>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="0" ItemsSource="{Binding Tests}" ItemTemplate="{StaticResource TestTemplate}" SelectedItem="{Binding SelectedItem}">
+            
+        </ListView>
+
+        <ListView Grid.Column="1" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}">
+
+        </ListView>
     </Grid>
 </Window>
