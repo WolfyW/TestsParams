@@ -27,16 +27,30 @@
     </Window.DataContext>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" ItemsSource="{Binding Tests}" ItemTemplate="{StaticResource TestTemplate}" SelectedItem="{Binding SelectedItem}">
-            
+        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Tests}" ItemTemplate="{StaticResource TestTemplate}" SelectedItem="{Binding SelectedItem}">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete"/>
+                    <MenuItem Header="Change"/>
+                    <MenuItem Header="Add Parameter"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
+        
+        <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
 
-        <ListView Grid.Column="1" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}">
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+            <Button Width="100" Height="30" Margin="5,5,0,0" Content="Add"/>
+        </StackPanel>
 
-        </ListView>
+
     </Grid>
 </Window>
