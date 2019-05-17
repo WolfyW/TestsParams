@@ -16,12 +16,16 @@
     </UserControl.Resources>
 
     <Grid>
-        <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Vertical" Width="230">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Название" Height="25" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding BlockName}" Margin="5,0,5,0" Width="150" Height="20"/>
+                <TextBox Text="{Binding BlockName}" Margin="5,0,5,0" Width="152" Height="20" MaxLength="50"/>
             </StackPanel>
-            <TextBox Text="{Binding Note}" Height="50" Margin="5,10,5,5"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Дата проведения:"/>
+                <DatePicker SelectedDate="{Binding TestDate}" Margin="5,0,0,0" Width="95"/>
+            </StackPanel>
+            <TextBox Text="{Binding Note}" Height="50" Margin="5,10,5,5" TextWrapping="Wrap" MaxLength="200"/>
         </StackPanel>
     </Grid>
 </UserControl>

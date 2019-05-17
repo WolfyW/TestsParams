@@ -9,11 +9,11 @@ using TestsParams.Model;
 
 namespace TestsParams.ViewModel
 {
-    class ParametersViewModel : INotifyPropertyChanged
+    class AddChangeParametersViewModel : INotifyPropertyChanged
     {
         private Parameters param;
-
-        public ParametersViewModel(Parameters param)
+        public bool AddChange { get; } = true;
+        public AddChangeParametersViewModel(Parameters param)
         {
             this.param = param;
         }
@@ -60,8 +60,7 @@ namespace TestsParams.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

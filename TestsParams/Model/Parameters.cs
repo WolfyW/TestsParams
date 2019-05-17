@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace TestsParams.Model
 {
-    public class Parameters : INotifyPropertyChanged
+    public class Parameters
     {
         [Key]
         public int ParametrId { get; set; }
@@ -24,13 +24,5 @@ namespace TestsParams.Model
         public decimal MeasuredValue { get; set; }
 
         public virtual Tests Tests { get; set; }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
     }
 }

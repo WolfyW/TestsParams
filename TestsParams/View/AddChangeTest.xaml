@@ -1,0 +1,40 @@
+﻿<Window x:Class="TestsParams.View.AddChangeTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestsParams.View"
+        xmlns:viewModel="clr-namespace:TestsParams.ViewModel"
+        mc:Ignorable="d"
+        Title="AddChangeTest" Height="300" Width="500">
+    
+    <Window.Resources>
+        <DataTemplate x:Key="ParamTemplate">
+            <local:ParamsView IsEnabled="True"/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        
+        <local:TestView Grid.Column="0" Grid.Row="0" IsEnabled="{Binding AddChange}" Width="250" Margin="0,10,0,0"/>
+        
+        <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
+        
+        <Button Grid.Column="0" Grid.Row="1" Width="75" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Add Test" 
+                Command="{Binding AddTestCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        
+        <Button Grid.Column="1" Grid.Row="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Add Parameter" 
+                Command="{Binding AddParamCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+
+    </Grid>
+</Window>

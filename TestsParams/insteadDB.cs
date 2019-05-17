@@ -9,7 +9,6 @@ namespace TestsParams
 {
     static class InsteadDB
     {
-
         public static IEnumerable<Tests> GetTests()
         {
             return tes;
@@ -25,12 +24,23 @@ namespace TestsParams
 
         public static void AddTest(Tests test)
         {
+            int id = GetNextTestId();
+            test.TestId = id;
             tes.Add(test);
+            if (test.Parameters.Count > 0)
+            {
+                foreach (var p in test.Parameters)
+                {
+                    AddParam(test, p);
+                }
+            }
         }
 
-
-        public static void AddParam(Parameters param)
+        public static void AddParam(Tests test, Parameters param)
         {
+            var x = par.Max(n => n.ParametrId);
+            param.ParametrId = x + 1;
+            param.TestId = test.TestId;
             par.Add(param);
         }
 
@@ -46,13 +56,20 @@ namespace TestsParams
                 par.Remove(param);
         }
 
+        private static int GetNextTestId()
+        {
+            var x = tes.Max(n => n.TestId);
+            x++;
+            return x;
+        }
+
         private static List<Tests> tes = new List<Tests>
         {
-            new Tests { TestId = 0, BlockName = "Тест №0", Note = "это тест записки номер №0 для теста", TestDate = DateTime.Now },
-            new Tests { TestId = 1, BlockName = "Тест №1", Note = "это тест записки номер №1 для теста", TestDate = DateTime.Now },
-            new Tests { TestId = 2, BlockName = "Тест №2", Note = "это тест записки номер №2 для теста", TestDate = DateTime.Now },
-            new Tests { TestId = 3, BlockName = "Тест №3", Note = "это тест записки номер №3 для теста", TestDate = DateTime.Now },
-            new Tests { TestId = 4, BlockName = "Тест №4", Note = "это тест записки номер №4 для теста", TestDate = DateTime.Now }
+            new Tests { TestId = 0, BlockName = "Тест №0", Note = "это тест записки номер №0 для теста", TestDate = DateTime.Parse("25.04.2015") },
+            new Tests { TestId = 1, BlockName = "Тест №1", Note = "это тест записки номер №1 для теста", TestDate = DateTime.Parse("15.07.2015") },
+            new Tests { TestId = 2, BlockName = "Тест №2", Note = "это тест записки номер №2 для теста", TestDate = DateTime.Parse("04.12.2015") },
+            new Tests { TestId = 3, BlockName = "Тест №3", Note = "это тест записки номер №3 для теста", TestDate = DateTime.Parse("25.01.2016") },
+            new Tests { TestId = 4, BlockName = "Тест №4", Note = "это тест записки номер №4 для теста", TestDate = DateTime.Parse("17.06.2017") }
         };
 
         private static List<Parameters> par = new List<Parameters>

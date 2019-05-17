@@ -23,6 +23,7 @@ namespace TestsParams.View
         public TestView()
         {
             InitializeComponent();
+            this.IsEnabled = false;
         }
     }
 }

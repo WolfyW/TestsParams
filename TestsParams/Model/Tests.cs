@@ -7,7 +7,7 @@ using System.Data.Entity.Spatial;
 
 namespace TestsParams.Model
 {
-    public partial class Tests
+    public class Tests
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tests()

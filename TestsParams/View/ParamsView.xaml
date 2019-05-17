@@ -7,7 +7,7 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" ></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="12"/>
         </Style>
         <Style TargetType="TextBox">
@@ -20,11 +20,11 @@
 
     <Grid>
         <Border BorderThickness="0,0,0,2" Padding="0,0,0,5" BorderBrush="Black">
-            <StackPanel Orientation="Vertical" IsEnabled="False">
+            <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Название:" Margin="0,0,5,0"/>
-                        <TextBox Text="{Binding ParameterName}" Height="25" Width="150"/>
+                        <TextBox Text="{Binding ParameterName}" MaxLength="200" Height="25" Width="150"/>
                     </StackPanel>
                     <TextBlock Text="Значения: "/>
                     <StackPanel Orientation="Horizontal">

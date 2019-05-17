@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TestsParams.Model;
+using TestsParams.MVVM;
+using TestsParams.View;
 
 namespace TestsParams.ViewModel
 {
@@ -25,7 +27,7 @@ namespace TestsParams.ViewModel
             }
             private set
             {
-                Tests = value;
+                tests = value;
                 OnPropertyChanged();
             }
         }
@@ -64,11 +66,50 @@ namespace TestsParams.ViewModel
             tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
         }
 
+        public void AddTest(Tests test)
+        {
+            InsteadDB.AddTest(test);
+            Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
+        }
+
+        public void ChangeTest()
+        {
+            Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
+        }
+
+        private RelayCommand addTestCommand;
+        public RelayCommand AddTestCommand
+        {
+            get
+            {
+                return addTestCommand ?? (addTestCommand = new RelayCommand(obj =>
+                {
+                    AddChangeTest add = new AddChangeTest(AddTest);
+                    add.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand changeTestCommand;
+        public RelayCommand ChangeTestCommand
+        {
+            get
+            {
+                return changeTestCommand ?? (changeTestCommand = new RelayCommand(obj =>
+                {
+                    AddChangeTest change = new AddChangeTest(ChangeTest, SelectedItem);
+                    change.ShowDialog();
+                }));
+            }
+        }
+
+        private RelayCommand deleteTestCommand;
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

@@ -11,8 +11,6 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
-        <ViewModel:ManageTestViewModel x:Name="TestManage" x:Key="Manage"/>
-
         <DataTemplate x:Key="TestTemplate">
             <view:TestView/>
         </DataTemplate>
@@ -39,7 +37,7 @@
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete"/>
-                    <MenuItem Header="Change"/>
+                    <MenuItem Header="Change" Command="{Binding ChangeTestCommand}"/>
                     <MenuItem Header="Add Parameter"/>
                 </ContextMenu>
             </ListView.ContextMenu>
@@ -48,7 +46,7 @@
         <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-            <Button Width="100" Height="30" Margin="5,5,0,0" Content="Add"/>
+            <Button Width="100" Height="30" Margin="5,5,0,0" Content="Add Test" Command="{Binding AddTestCommand}"/>
         </StackPanel>
 
 
