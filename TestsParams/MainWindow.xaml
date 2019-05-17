@@ -36,7 +36,7 @@
         <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Tests}" ItemTemplate="{StaticResource TestTemplate}" SelectedItem="{Binding SelectedItem}">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Delete"/>
+                    <MenuItem Header="Delete" Command="{Binding DeleteTestCommand}"/>
                     <MenuItem Header="Change" Command="{Binding ChangeTestCommand}"/>
                     <MenuItem Header="Add Parameter"/>
                 </ContextMenu>

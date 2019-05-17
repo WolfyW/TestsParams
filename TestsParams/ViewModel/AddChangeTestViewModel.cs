@@ -21,7 +21,7 @@ namespace TestsParams.ViewModel
 
         private readonly AddDelegate<Tests> add;
         private readonly ChangeDelegate change;
-        private bool isAdd;
+        private readonly bool isAdd;
 
         public AddChangeTestViewModel(AddDelegate<Tests> addDelegate)
         {

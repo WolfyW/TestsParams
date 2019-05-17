@@ -46,8 +46,14 @@ namespace TestsParams
 
         public static void DeleteTest(Tests test)
         {
-            if (tes.Contains(test))
-                tes.Remove(test);
+            if (!tes.Contains(test))
+                return;
+
+            foreach (var p in GetParametrs(test))
+            {
+                DeleteParameter(p);
+            }
+            tes.Remove(test);
         }
 
         public static void DeleteParameter(Parameters param)

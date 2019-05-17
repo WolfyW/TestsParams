@@ -54,9 +54,11 @@ namespace TestsParams.ViewModel
             set
             {
                 selectedItem = value;
-                Console.WriteLine(selectedItem.BlockName);
-                Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedItem));
-
+                if (selectedItem != null)
+                {
+                    Console.WriteLine(selectedItem.BlockName);
+                    Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedItem));
+                }
                 OnPropertyChanged();
             }
         }
@@ -66,13 +68,24 @@ namespace TestsParams.ViewModel
             tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
         }
 
-        public void AddTest(Tests test)
+        private void AddTest(Tests test)
         {
             InsteadDB.AddTest(test);
-            Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
+            UpdateTests();
         }
 
-        public void ChangeTest()
+        private void ChangeTest()
+        {
+            UpdateTests();
+        }
+
+        private void DeleteTest()
+        {
+            InsteadDB.DeleteTest(selectedItem);
+            UpdateTests();
+        }
+
+        private void UpdateTests()
         {
             Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
         }
@@ -104,6 +117,16 @@ namespace TestsParams.ViewModel
         }
 
         private RelayCommand deleteTestCommand;
+        public RelayCommand DeleteTestCommand
+        {
+            get
+            {
+                return deleteTestCommand ?? (deleteTestCommand = new RelayCommand(obj =>
+                {
+                    DeleteTest();
+                }));
+            }
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
