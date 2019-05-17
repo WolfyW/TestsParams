@@ -66,9 +66,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Parameters.cs" />
+    <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="Model\Tests.cs" />
     <Compile Include="ViewModel\ManageTestViewModel.cs" />
+    <Compile Include="ViewModel\ParametersViewModel.cs" />
     <Compile Include="View\ParamsView.xaml.cs">
       <DependentUpon>ParamsView.xaml</DependentUpon>
     </Compile>

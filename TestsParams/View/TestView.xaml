@@ -18,8 +18,8 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Название" Margin="0,0,0,0" Height="25" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding BlockName}" Margin="5,0,0,0" Width="150" Height="20"/>
+                <TextBlock Text="Название" Height="25" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding BlockName}" Margin="5,0,5,0" Width="150" Height="20"/>
             </StackPanel>
             <TextBox Text="{Binding Note}" Height="50" Margin="5,10,5,5"/>
         </StackPanel>
