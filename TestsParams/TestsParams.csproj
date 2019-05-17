@@ -73,6 +73,9 @@
     <Compile Include="ViewModel\AddChangeTestViewModel.cs" />
     <Compile Include="ViewModel\ManageTestViewModel.cs" />
     <Compile Include="ViewModel\AddChangeParametersViewModel.cs" />
+    <Compile Include="View\AddChangeParametr.xaml.cs">
+      <DependentUpon>AddChangeParametr.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddChangeTest.xaml.cs">
       <DependentUpon>AddChangeTest.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddChangeParametr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddChangeTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

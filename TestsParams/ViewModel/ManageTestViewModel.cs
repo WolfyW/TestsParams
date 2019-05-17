@@ -18,6 +18,7 @@ namespace TestsParams.ViewModel
         private ObservableCollection<Tests> tests;
         private ObservableCollection<Parameters> parametrs = new ObservableCollection<Parameters>();
         private Tests selectedItem;
+        private Parameters selectedParameter;
 
         public ObservableCollection<Tests> Tests
         {
@@ -45,7 +46,7 @@ namespace TestsParams.ViewModel
             }
         }
 
-        public Tests SelectedItem
+        public Tests SelectedTest
         {
             get
             {
@@ -59,6 +60,19 @@ namespace TestsParams.ViewModel
                     Console.WriteLine(selectedItem.BlockName);
                     Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedItem));
                 }
+                OnPropertyChanged();
+            }
+        }
+
+        public Parameters SelectedParameter
+        {
+            get
+            {
+                return selectedParameter;
+            }
+            set
+            {
+                selectedParameter = value;
                 OnPropertyChanged();
             }
         }
@@ -90,6 +104,22 @@ namespace TestsParams.ViewModel
             Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
         }
 
+        private void AddParametr(Tests test, Parameters param)
+        {
+            
+        }
+
+        private void DeleteParameter()
+        {
+            InsteadDB.DeleteParameter(SelectedParameter);
+            Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedItem));
+        }
+
+        private void ChangeParameter()
+        {
+            
+        }
+
         private RelayCommand addTestCommand;
         public RelayCommand AddTestCommand
         {
@@ -110,7 +140,7 @@ namespace TestsParams.ViewModel
             {
                 return changeTestCommand ?? (changeTestCommand = new RelayCommand(obj =>
                 {
-                    AddChangeTest change = new AddChangeTest(ChangeTest, SelectedItem);
+                    AddChangeTest change = new AddChangeTest(ChangeTest, SelectedTest);
                     change.ShowDialog();
                 }));
             }
@@ -128,6 +158,31 @@ namespace TestsParams.ViewModel
             }
         }
 
+        private RelayCommand addParameterCommand;
+        public RelayCommand AddParameteCommand
+        {
+            get
+            {
+                return addParameterCommand ?? (addParameterCommand = new RelayCommand(obj =>
+                {
+                    
+                }));
+            }
+        }
+
+        private RelayCommand changeParameterCommand;
+
+        private RelayCommand deleteParametrCommnad;
+        public RelayCommand DeleteParametrCommnad
+        {
+            get
+            {
+                return deleteParametrCommnad ?? (deleteParametrCommnad = new RelayCommand(obj =>
+                {
+                    DeleteParameter();
+                }));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

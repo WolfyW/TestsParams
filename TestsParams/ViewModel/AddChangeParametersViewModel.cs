@@ -12,10 +12,15 @@ namespace TestsParams.ViewModel
     class AddChangeParametersViewModel : INotifyPropertyChanged
     {
         private Parameters param;
-        public bool AddChange { get; } = true;
-        public AddChangeParametersViewModel(Parameters param)
+
+        public AddChangeParametersViewModel(ChangeDelegate changeDelegate, Parameters param)
         {
             this.param = param;
+        }
+
+        public AddChangeParametersViewModel(AddDelegate<Parameters> addDelegate)
+        {
+            param = new Parameters();
         }
 
         public string ParameterName

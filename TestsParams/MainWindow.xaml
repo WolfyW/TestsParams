@@ -33,7 +33,7 @@
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Tests}" ItemTemplate="{StaticResource TestTemplate}" SelectedItem="{Binding SelectedItem}">
+        <ListView Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Tests}" ItemTemplate="{StaticResource TestTemplate}" SelectedItem="{Binding SelectedTest}">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Delete" Command="{Binding DeleteTestCommand}"/>
@@ -43,7 +43,7 @@
             </ListView.ContextMenu>
         </ListView>
         
-        <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
+        <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}" SelectedItem="{Binding SelectedParameter}"/>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
             <Button Width="100" Height="30" Margin="5,5,0,0" Content="Add Test" Command="{Binding AddTestCommand}"/>
