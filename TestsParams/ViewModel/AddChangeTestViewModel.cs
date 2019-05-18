@@ -179,8 +179,11 @@ namespace TestsParams.ViewModel
             {
                 return changeParameterCommand ?? (changeParameterCommand = new RelayCommand(obj =>
                 {
-                    AddChangeParametr change = new AddChangeParametr(ChangeParameter, SelectedParameter, test.BlockName);
-                    change.ShowDialog();
+                    if (SelectedParameter != null)
+                    {
+                        AddChangeParametr change = new AddChangeParametr(ChangeParameter, SelectedParameter, test.BlockName);
+                        change.ShowDialog();
+                    }
                 }));
             }
         }
@@ -192,9 +195,12 @@ namespace TestsParams.ViewModel
             {
                 return deleteParameterCommand ?? (deleteParameterCommand = new RelayCommand(obj =>
                 {
-                    MessageBoxResult result = MessageBox.Show("Данное действие удалит параметр\n\nвы уверены?", "Удаление параметра", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.Yes)
-                        DeleteParameter();
+                    if (SelectedParameter != null)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Данное действие удалит параметр\n\nвы уверены?", "Удаление параметра", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        if (result == MessageBoxResult.Yes)
+                            DeleteParameter();
+                    }
                 }));
             }
         }

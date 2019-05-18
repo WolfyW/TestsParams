@@ -113,8 +113,11 @@ namespace TestsParams.ViewModel
             {
                 return changeTestCommand ?? (changeTestCommand = new RelayCommand(obj =>
                 {
-                    AddChangeTest change = new AddChangeTest(ChangeTest, SelectedTest);
-                    change.ShowDialog();
+                    if (SelectedTest != null)
+                    {
+                        AddChangeTest change = new AddChangeTest(ChangeTest, SelectedTest);
+                        change.ShowDialog();
+                    }
                 }));
             }
         }
@@ -126,9 +129,12 @@ namespace TestsParams.ViewModel
             {
                 return deleteTestCommand ?? (deleteTestCommand = new RelayCommand(obj =>
                 {
-                    MessageBoxResult result = MessageBox.Show("Данное действие удалит тест\n\nвы уверены?", "Удаление Теста", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.Yes)
-                        DeleteTest();
+                    if (SelectedTest != null)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Данное действие удалит тест\n\nвы уверены?", "Удаление Теста", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        if (result == MessageBoxResult.Yes)
+                            DeleteTest();
+                    }
                 }));
             }
         }
