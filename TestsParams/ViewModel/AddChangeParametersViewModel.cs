@@ -5,23 +5,36 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TestsParams.Model;
+using TestsParams.MVVM;
 
 namespace TestsParams.ViewModel
 {
     class AddChangeParametersViewModel : INotifyPropertyChanged
     {
         private Parameters param;
+        private bool isAdd;
 
-        public AddChangeParametersViewModel(ChangeDelegate changeDelegate, Parameters param)
+        public AddChangeParametersViewModel(ChangeDelegate changeDelegate, Parameters param, string testName)
         {
+            isAdd = false;
             this.param = param;
+            this.TestName = testName;
+            this.changeDelegate = changeDelegate;
+        }
+        public AddChangeParametersViewModel(AddDelegate<Parameters> addDelegate, string testName)
+        {
+            isAdd = true;
+            param = new Parameters();
+            this.TestName = testName;
+            this.addDelegate = addDelegate;
         }
 
-        public AddChangeParametersViewModel(AddDelegate<Parameters> addDelegate)
-        {
-            param = new Parameters();
-        }
+        public string TestName { get; }
+
+        private ChangeDelegate changeDelegate;
+        private AddDelegate<Parameters> addDelegate;
 
         public string ParameterName
         {
@@ -35,7 +48,6 @@ namespace TestsParams.ViewModel
                 OnPropertyChanged();
             }
         }
-
         public decimal RequiredValue
         {
             get
@@ -48,7 +60,6 @@ namespace TestsParams.ViewModel
                 OnPropertyChanged();
             }
         }
-
         public decimal MeasuredValue
         {
             get
@@ -59,6 +70,30 @@ namespace TestsParams.ViewModel
             {
                 param.MeasuredValue = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private RelayCommand addCommand;
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                if (isAdd)
+                {
+                    return addCommand ?? (addCommand = new RelayCommand(obj =>
+                    {
+                        addDelegate(param);
+                        ((Window)obj).Close();
+                    }));
+                }
+                else
+                {
+                    return addCommand ?? (addCommand = new RelayCommand(obj =>
+                    {
+                        changeDelegate();
+                        ((Window)obj).Close();
+                    }));
+                }
             }
         }
 

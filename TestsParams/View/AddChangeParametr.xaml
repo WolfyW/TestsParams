@@ -16,7 +16,9 @@
             <local:ParamsView IsEnabled="True"/>
         </StackPanel>
         
-        <Button Grid.Row="1" Width="100" Height="25" Content="Add Parameter" Command="{Binding AddCommand}"/>
+        <Button Grid.Row="1" Width="100" Height="25" Content="Add Parameter" 
+                Command="{Binding AddCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         
     </Grid>
 </Window>

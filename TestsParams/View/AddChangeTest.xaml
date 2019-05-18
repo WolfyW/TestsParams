@@ -27,14 +27,43 @@
         <local:TestView Grid.Column="0" Grid.Row="0" IsEnabled="{Binding AddChange}" Width="250" Margin="0,10,0,0"/>
         
         <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
-        
-        <Button Grid.Column="0" Grid.Row="1" Width="75" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Add Test" 
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+            <Button  
+                Width="75" 
+                Height="30" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Left" 
+                Margin="5,0,5,0" 
+                Content="Add Test" 
                 Command="{Binding AddTestCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
-        
-        <Button Grid.Column="1" Grid.Row="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Add Parameter" 
-                Command="{Binding AddParamCommand}"
-                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+
+            <Button 
+                Width="100" 
+                Height="30" 
+                Margin="5,0,5,0" 
+                Content="Add Parameter" 
+                Command="{Binding AddParameteCommand}"/>
+        </StackPanel>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+            <Button 
+                Width="100" 
+                Height="30" 
+                Margin="5,0,5,0" 
+                Content="Delete Parameter" 
+                Command="{Binding DeleteParameterCommand}"/>
+
+            <Button 
+                Width="110" 
+                Height="30" 
+                Margin="5,0,5,0" 
+                Content="Change Parameter" 
+                Command="{Binding ChangeParameterCommand}"/>
+        </StackPanel>
+
 
     </Grid>
 </Window>

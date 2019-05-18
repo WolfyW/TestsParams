@@ -65,7 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="insteadDB.cs" />
+    <Compile Include="InsteadDB.cs" />
     <Compile Include="Model\Parameters.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="TestContext.cs" />

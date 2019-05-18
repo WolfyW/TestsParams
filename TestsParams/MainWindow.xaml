@@ -38,7 +38,6 @@
                 <ContextMenu>
                     <MenuItem Header="Delete" Command="{Binding DeleteTestCommand}"/>
                     <MenuItem Header="Change" Command="{Binding ChangeTestCommand}"/>
-                    <MenuItem Header="Add Parameter"/>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>

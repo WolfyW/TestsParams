@@ -17,8 +17,7 @@ namespace TestsParams.ViewModel
     {
         private ObservableCollection<Tests> tests;
         private ObservableCollection<Parameters> parametrs = new ObservableCollection<Parameters>();
-        private Tests selectedItem;
-        private Parameters selectedParameter;
+        private Tests selectedTest;
 
         public ObservableCollection<Tests> Tests
         {
@@ -32,7 +31,6 @@ namespace TestsParams.ViewModel
                 OnPropertyChanged();
             }
         }
-
         public ObservableCollection<Parameters> Parametrs
         {
             get
@@ -45,34 +43,20 @@ namespace TestsParams.ViewModel
                 OnPropertyChanged();
             }
         }
-
         public Tests SelectedTest
         {
             get
             {
-                return selectedItem;
+                return selectedTest;
             }
             set
             {
-                selectedItem = value;
-                if (selectedItem != null)
+                selectedTest = value;
+                if (selectedTest != null)
                 {
-                    Console.WriteLine(selectedItem.BlockName);
-                    Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedItem));
+                    Console.WriteLine(selectedTest.BlockName);
+                    Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedTest));
                 }
-                OnPropertyChanged();
-            }
-        }
-
-        public Parameters SelectedParameter
-        {
-            get
-            {
-                return selectedParameter;
-            }
-            set
-            {
-                selectedParameter = value;
                 OnPropertyChanged();
             }
         }
@@ -87,15 +71,14 @@ namespace TestsParams.ViewModel
             InsteadDB.AddTest(test);
             UpdateTests();
         }
-
         private void ChangeTest()
         {
             UpdateTests();
+            UpdateParameters();
         }
-
         private void DeleteTest()
         {
-            InsteadDB.DeleteTest(selectedItem);
+            InsteadDB.DeleteTest(selectedTest);
             UpdateTests();
         }
 
@@ -103,21 +86,9 @@ namespace TestsParams.ViewModel
         {
             Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
         }
-
-        private void AddParametr(Tests test, Parameters param)
+        private void UpdateParameters()
         {
-            
-        }
-
-        private void DeleteParameter()
-        {
-            InsteadDB.DeleteParameter(SelectedParameter);
-            Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedItem));
-        }
-
-        private void ChangeParameter()
-        {
-            
+            Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(SelectedTest));
         }
 
         private RelayCommand addTestCommand;
@@ -154,32 +125,6 @@ namespace TestsParams.ViewModel
                 return deleteTestCommand ?? (deleteTestCommand = new RelayCommand(obj =>
                 {
                     DeleteTest();
-                }));
-            }
-        }
-
-        private RelayCommand addParameterCommand;
-        public RelayCommand AddParameteCommand
-        {
-            get
-            {
-                return addParameterCommand ?? (addParameterCommand = new RelayCommand(obj =>
-                {
-                    
-                }));
-            }
-        }
-
-        private RelayCommand changeParameterCommand;
-
-        private RelayCommand deleteParametrCommnad;
-        public RelayCommand DeleteParametrCommnad
-        {
-            get
-            {
-                return deleteParametrCommnad ?? (deleteParametrCommnad = new RelayCommand(obj =>
-                {
-                    DeleteParameter();
                 }));
             }
         }
