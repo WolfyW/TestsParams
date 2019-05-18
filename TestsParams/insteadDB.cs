@@ -1,72 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestsParams.Model;
 
 namespace TestsParams
 {
     static class InsteadDB
     {
+        private static TestContext context = new TestContext();
+
         public static IEnumerable<Tests> GetTests()
         {
-            return tes;
-        }
-
-        public static IEnumerable<Parameters> GetParametrs(Tests test)
-        {
-            var pars = from p in par
-                where p.TestId == test.TestId
-                select p;
-           return pars.ToList();
+            return context.Tests;
         }
 
         public static void AddTest(Tests test)
         {
-            int id = GetNextTestId();
-            test.TestId = id;
-            tes.Add(test);
-            if (test.Parameters.Count > 0)
+            context.Tests.Add(test);
+            foreach (var p in test.Parameters)
             {
-                foreach (var p in test.Parameters)
-                {
-                    AddParam(test, p);
-                }
+                AddParameter(p);
             }
-        }
-
-        public static void AddParam(Tests test, Parameters param)
-        {
-            var x = par.Max(n => n.ParametrId);
-            param.ParametrId = x + 1;
-            param.TestId = test.TestId;
-            par.Add(param);
+            context.SaveChanges();
         }
 
         public static void DeleteTest(Tests test)
         {
-            if (!tes.Contains(test))
-                return;
+            if (context.Tests.Contains(test))
+                context.Tests.Remove(test);
+        }
 
-            foreach (var p in GetParametrs(test))
-            {
-                DeleteParameter(p);
-            }
-            tes.Remove(test);
+        public static void AddParameter(Parameters param)
+        {
+            context.Parameters.Add(param);
+            context.SaveChanges();
         }
 
         public static void DeleteParameter(Parameters param)
         {
-            if (par.Contains(param))
-                par.Remove(param);
+            if (context.Parameters.Contains(param))
+                context.Parameters.Remove(param);
         }
 
-        private static int GetNextTestId()
+        public static void SaveChanges()
         {
-            var x = tes.Max(n => n.TestId);
-            x++;
-            return x;
+            context.SaveChanges();
         }
 
         private static List<Tests> tes = new List<Tests>

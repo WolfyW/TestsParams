@@ -54,8 +54,7 @@ namespace TestsParams.ViewModel
                 selectedTest = value;
                 if (selectedTest != null)
                 {
-                    Console.WriteLine(selectedTest.BlockName);
-                    Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(selectedTest));
+                    Parametrs = new ObservableCollection<Parameters>(selectedTest.Parameters);
                 }
                 OnPropertyChanged();
             }
@@ -85,10 +84,12 @@ namespace TestsParams.ViewModel
         private void UpdateTests()
         {
             Tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
+            InsteadDB.SaveChanges();
         }
         private void UpdateParameters()
         {
-            Parametrs = new ObservableCollection<Parameters>(InsteadDB.GetParametrs(SelectedTest));
+            Parametrs = new ObservableCollection<Parameters>(SelectedTest.Parameters);
+            InsteadDB.SaveChanges();
         }
 
         private RelayCommand addTestCommand;
