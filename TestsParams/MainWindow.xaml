@@ -18,6 +18,14 @@
         <DataTemplate x:Key="ParamTemplate">
             <view:ParamsView/>
         </DataTemplate>
+
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Padding" Value="10,0,10,0"/>
+            <Setter Property="Margin" Value="5,5,0,0"/>
+
+        </Style>
+        
     </Window.Resources>
 
     <Window.DataContext>
@@ -45,7 +53,9 @@
         <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-            <Button Width="100" Height="30" Margin="5,5,0,0" Content="Add Test" Command="{Binding AddTestCommand}"/>
+            <Button Content="Add Test" Command="{Binding AddTestCommand}"/>
+            <Button Content="Change Test" Command="{Binding ChangeTestCommand}"/>
+            <Button Content="Delete Test" Command="{Binding DeleteTestCommand}"/>
         </StackPanel>
 
 

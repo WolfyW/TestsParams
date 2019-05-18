@@ -72,6 +72,16 @@ namespace TestsParams.ViewModel
                 OnPropertyChanged();
             }
         }
+        public string ButtonName
+        {
+            get
+            {
+                if (isAdd)
+                    return "Add Parametr";
+                else
+                    return "Save Changes";
+            }
+        }
 
         private RelayCommand addCommand;
         public RelayCommand AddCommand

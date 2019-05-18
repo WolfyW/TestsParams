@@ -105,6 +105,17 @@ namespace TestsParams.ViewModel
             }
         }
 
+        public string ButtonName
+        {
+            get
+            {
+                if (isAdd)
+                    return "Add Test";
+                else
+                    return "Save Changes";
+            }
+        }
+
         private void AddParametr(Parameters param)
         {
             test.Parameters.Add(param);
@@ -112,7 +123,7 @@ namespace TestsParams.ViewModel
         }
         private void DeleteParameter()
         {
-            test.Parameters.Remove(SelectedParameter);
+            InsteadDB.DeleteParameter(SelectedParameter);
             UpdateParameters();
         }
         private void ChangeParameter()
@@ -181,7 +192,9 @@ namespace TestsParams.ViewModel
             {
                 return deleteParameterCommand ?? (deleteParameterCommand = new RelayCommand(obj =>
                 {
-                    DeleteParameter();
+                    MessageBoxResult result = MessageBox.Show("Данное действие удалит параметр\n\nвы уверены?", "Удаление параметра", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                        DeleteParameter();
                 }));
             }
         }

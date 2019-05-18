@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TestsParams.View"
         xmlns:viewModel="clr-namespace:TestsParams.ViewModel"
         mc:Ignorable="d"
-        Title="AddChangeTest" Height="300" Width="500">
+        Title="AddChangeTest" Height="400" Width="530">
     
     <Window.Resources>
         <DataTemplate x:Key="ParamTemplate">
@@ -24,18 +24,28 @@
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
         
-        <local:TestView Grid.Column="0" Grid.Row="0" IsEnabled="{Binding AddChange}" Width="250" Margin="0,10,0,0"/>
-        
-        <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Parametrs}" ItemTemplate="{StaticResource ParamTemplate}"/>
+        <local:TestView 
+            Grid.Column="0" 
+            Grid.Row="0" 
+            IsEnabled="True"
+            Width="250" 
+            Margin="0,10,0,0"/>
+
+        <ListView 
+            Grid.Column="1" 
+            Grid.Row="0" 
+            ItemsSource="{Binding Parametrs}" 
+            ItemTemplate="{StaticResource ParamTemplate}" 
+            SelectedItem="{Binding SelectedParameter}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-            <Button  
-                Width="75" 
+            <Button
                 Height="30" 
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Left" 
+                Padding="3,0,3,0"
                 Margin="5,0,5,0" 
-                Content="Add Test" 
+                Content="{Binding ButtonName}" 
                 Command="{Binding AddTestCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
 

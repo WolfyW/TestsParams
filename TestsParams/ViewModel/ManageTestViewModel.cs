@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TestsParams.Model;
 using TestsParams.MVVM;
 using TestsParams.View;
@@ -125,7 +126,9 @@ namespace TestsParams.ViewModel
             {
                 return deleteTestCommand ?? (deleteTestCommand = new RelayCommand(obj =>
                 {
-                    DeleteTest();
+                    MessageBoxResult result = MessageBox.Show("Данное действие удалит тест\n\nвы уверены?", "Удаление Теста", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                        DeleteTest();
                 }));
             }
         }
