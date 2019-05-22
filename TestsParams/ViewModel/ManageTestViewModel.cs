@@ -10,19 +10,19 @@ namespace TestsParams.ViewModel
 {
     class ManageTestViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Tests> tests;
-        private ObservableCollection<Parameters> parametrs = new ObservableCollection<Parameters>();
-        private Tests selectedTest;
+        private ObservableCollection<Tests> _tests;
+        private ObservableCollection<Parameters> _parametrs = new ObservableCollection<Parameters>();
+        private Tests _selectedTest;
 
         public ObservableCollection<Tests> Tests
         {
             get
             {
-                return tests;
+                return _tests;
             }
             private set
             {
-                tests = value;
+                _tests = value;
                 OnPropertyChanged();
             }
         }
@@ -30,11 +30,11 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return parametrs;
+                return _parametrs;
             }
             private set
             {
-                parametrs = value;
+                _parametrs = value;
                 OnPropertyChanged();
             }
         }
@@ -42,14 +42,14 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return selectedTest;
+                return _selectedTest;
             }
             set
             {
-                selectedTest = value;
-                if (selectedTest != null)
+                _selectedTest = value;
+                if (_selectedTest != null)
                 {
-                    Parametrs = new ObservableCollection<Parameters>(selectedTest.Parameters);
+                    Parametrs = new ObservableCollection<Parameters>(_selectedTest.Parameters);
                 }
                 OnPropertyChanged();
             }
@@ -57,7 +57,7 @@ namespace TestsParams.ViewModel
 
         public ManageTestViewModel()
         {
-            tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
+            _tests = new ObservableCollection<Tests>(InsteadDB.GetTests());
         }
 
         private void AddTest(Tests test)
@@ -72,7 +72,7 @@ namespace TestsParams.ViewModel
         }
         private void DeleteTest()
         {
-            InsteadDB.DeleteTest(selectedTest);
+            InsteadDB.DeleteTest(_selectedTest);
             UpdateTests();
         }
 
@@ -87,12 +87,12 @@ namespace TestsParams.ViewModel
             InsteadDB.SaveChanges();
         }
 
-        private RelayCommand addTestCommand;
+        private RelayCommand _addTestCommand;
         public RelayCommand AddTestCommand
         {
             get
             {
-                return addTestCommand ?? (addTestCommand = new RelayCommand(obj =>
+                return _addTestCommand ?? (_addTestCommand = new RelayCommand(obj =>
                 {
                     AddChangeTest add = new AddChangeTest(AddTest);
                     add.ShowDialog();
@@ -100,12 +100,12 @@ namespace TestsParams.ViewModel
             }
         }
 
-        private RelayCommand changeTestCommand;
+        private RelayCommand _changeTestCommand;
         public RelayCommand ChangeTestCommand
         {
             get
             {
-                return changeTestCommand ?? (changeTestCommand = new RelayCommand(obj =>
+                return _changeTestCommand ?? (_changeTestCommand = new RelayCommand(obj =>
                 {
                     if (SelectedTest != null)
                     {
@@ -116,12 +116,12 @@ namespace TestsParams.ViewModel
             }
         }
 
-        private RelayCommand deleteTestCommand;
+        private RelayCommand _deleteTestCommand;
         public RelayCommand DeleteTestCommand
         {
             get
             {
-                return deleteTestCommand ?? (deleteTestCommand = new RelayCommand(obj =>
+                return _deleteTestCommand ?? (_deleteTestCommand = new RelayCommand(obj =>
                 {
                     if (SelectedTest != null)
                     {

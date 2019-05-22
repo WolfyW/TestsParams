@@ -8,38 +8,38 @@ namespace TestsParams.ViewModel
 {
     class AddChangeParametersViewModel : INotifyPropertyChanged
     {
-        private Parameters param;
-        private bool isAdd;
+        private readonly Parameters _param;
+        private readonly bool _isAdd;
 
         public AddChangeParametersViewModel(ChangeDelegate changeDelegate, Parameters param, string testName)
         {
-            isAdd = false;
-            this.param = param;
+            _isAdd = false;
+            this._param = param;
             this.TestName = testName;
-            this.changeDelegate = changeDelegate;
+            this._changeDelegate = changeDelegate;
         }
         public AddChangeParametersViewModel(AddDelegate<Parameters> addDelegate, string testName)
         {
-            isAdd = true;
-            param = new Parameters();
+            _isAdd = true;
+            _param = new Parameters();
             this.TestName = testName;
-            this.addDelegate = addDelegate;
+            this._addDelegate = addDelegate;
         }
 
         public string TestName { get; }
 
-        private ChangeDelegate changeDelegate;
-        private AddDelegate<Parameters> addDelegate;
+        private readonly ChangeDelegate _changeDelegate;
+        private readonly AddDelegate<Parameters> _addDelegate;
 
         public string ParameterName
         {
             get
             {
-                return param.ParameterName;
+                return _param.ParameterName;
             }
             set
             {
-                param.ParameterName = value;
+                _param.ParameterName = value;
                 OnPropertyChanged();
             }
         }
@@ -47,11 +47,11 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return param.RequiredValue;
+                return _param.RequiredValue;
             }
             set
             {
-                param.RequiredValue = value;
+                _param.RequiredValue = value;
                 OnPropertyChanged();
             }
         }
@@ -59,11 +59,11 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return param.MeasuredValue;
+                return _param.MeasuredValue;
             }
             set
             {
-                param.MeasuredValue = value;
+                _param.MeasuredValue = value;
                 OnPropertyChanged();
             }
         }
@@ -71,31 +71,31 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                if (isAdd)
+                if (_isAdd)
                     return "Add Parametr";
                 else
                     return "Save Changes";
             }
         }
 
-        private RelayCommand addCommand;
+        private RelayCommand _addCommand;
         public RelayCommand AddCommand
         {
             get
             {
-                if (isAdd)
+                if (_isAdd)
                 {
-                    return addCommand ?? (addCommand = new RelayCommand(obj =>
+                    return _addCommand ?? (_addCommand = new RelayCommand(obj =>
                     {
-                        addDelegate(param);
+                        _addDelegate(_param);
                         ((Window)obj).Close();
                     }));
                 }
                 else
                 {
-                    return addCommand ?? (addCommand = new RelayCommand(obj =>
+                    return _addCommand ?? (_addCommand = new RelayCommand(obj =>
                     {
-                        changeDelegate();
+                        _changeDelegate();
                         ((Window)obj).Close();
                     }));
                 }

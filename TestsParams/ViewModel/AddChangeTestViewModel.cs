@@ -14,40 +14,40 @@ namespace TestsParams.ViewModel
 
     class AddChangeTestViewModel : INotifyPropertyChanged
     {
-        private Tests test;
-        private ObservableCollection<Parameters> parametres;
-        private Parameters selectedParametr;
+        private Tests _test;
+        private ObservableCollection<Parameters> _parametres;
+        private Parameters _selectedParametr;
 
-        private readonly AddDelegate<Tests> addDelegate;
-        private readonly ChangeDelegate changeDelegate;
-        private readonly bool isAdd;
+        private readonly AddDelegate<Tests> _addDelegate;
+        private readonly ChangeDelegate _changeDelegate;
+        private readonly bool _isAdd;
 
         public AddChangeTestViewModel(AddDelegate<Tests> addDelegate)
         {
-            isAdd = true;
-            test = new Tests();
-            test.TestDate = DateTime.Now;
-            parametres = new ObservableCollection<Parameters>();
-            this.addDelegate = addDelegate;
+            _isAdd = true;
+            _test = new Tests();
+            _test.TestDate = DateTime.Now;
+            _parametres = new ObservableCollection<Parameters>();
+            this._addDelegate = addDelegate;
         }
         public AddChangeTestViewModel(ChangeDelegate changeDelegate, Tests test)
         {
-            isAdd = false;
-            this.test = test;
-            parametres = new ObservableCollection<Parameters>(test.Parameters);
-            this.changeDelegate = changeDelegate;
+            _isAdd = false;
+            this._test = test;
+            _parametres = new ObservableCollection<Parameters>(test.Parameters);
+            this._changeDelegate = changeDelegate;
         }
 
         public DateTime TestDate
         {
             get
             {
-                return test.TestDate;
+                return _test.TestDate;
                 
             }
             set
             {
-                test.TestDate = value;
+                _test.TestDate = value;
                 OnPropertyChanged();
             }
         }
@@ -55,12 +55,12 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return test.BlockName;
+                return _test.BlockName;
                 
             }
             set
             {
-                test.BlockName = value;
+                _test.BlockName = value;
                 OnPropertyChanged();
             }
         }
@@ -68,12 +68,12 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return test.Note;
+                return _test.Note;
                 
             }
             set
             {
-                test.Note = value;
+                _test.Note = value;
                 OnPropertyChanged();
             }
         }
@@ -82,11 +82,11 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return parametres;
+                return _parametres;
             }
             set
             {
-                parametres = value;
+                _parametres = value;
                 OnPropertyChanged();
             }
         }
@@ -94,11 +94,11 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                return selectedParametr;
+                return _selectedParametr;
             }
             set
             {
-                selectedParametr = value;
+                _selectedParametr = value;
                 OnPropertyChanged();
             }
         }
@@ -107,7 +107,7 @@ namespace TestsParams.ViewModel
         {
             get
             {
-                if (isAdd)
+                if (_isAdd)
                     return "Add Test";
                 else
                     return "Save Changes";
@@ -116,7 +116,7 @@ namespace TestsParams.ViewModel
 
         private void AddParametr(Parameters param)
         {
-            test.Parameters.Add(param);
+            _test.Parameters.Add(param);
             UpdateParameters();
         }
         private void DeleteParameter()
@@ -130,68 +130,68 @@ namespace TestsParams.ViewModel
         }
         private void UpdateParameters()
         {
-            Parametrs = new ObservableCollection<Parameters>(test.Parameters);
+            Parametrs = new ObservableCollection<Parameters>(_test.Parameters);
         }
 
-        private RelayCommand addTestCommand;
+        private RelayCommand _addTestCommand;
         public RelayCommand AddTestCommand
         {
             get
             {
-                if (isAdd)
+                if (_isAdd)
                 {
-                    return addTestCommand ?? (addTestCommand = new RelayCommand(obj =>
+                    return _addTestCommand ?? (_addTestCommand = new RelayCommand(obj =>
                     {
-                        addDelegate(test);
+                        _addDelegate(_test);
                         ((Window)obj).Close();
                     }));
                 }
                 else
                 {
-                    return addTestCommand ?? (addTestCommand = new RelayCommand(obj =>
+                    return _addTestCommand ?? (_addTestCommand = new RelayCommand(obj =>
                     {
-                        changeDelegate();
+                        _changeDelegate();
                         ((Window)obj).Close();
                     }));
                 }
             }
         }
 
-        private RelayCommand addParameterCommand;
+        private RelayCommand _addParameterCommand;
         public RelayCommand AddParameteCommand
         {
             get
             {
-                return addParameterCommand ?? (addParameterCommand = new RelayCommand(obj =>
+                return _addParameterCommand ?? (_addParameterCommand = new RelayCommand(obj =>
                 {
-                    AddChangeParametr add = new AddChangeParametr(AddParametr, test.BlockName);
+                    AddChangeParametr add = new AddChangeParametr(AddParametr, _test.BlockName);
                     add.ShowDialog();
                 }));
             }
         }
 
-        private RelayCommand changeParameterCommand;
+        private RelayCommand _changeParameterCommand;
         public RelayCommand ChangeParameterCommand
         {
             get
             {
-                return changeParameterCommand ?? (changeParameterCommand = new RelayCommand(obj =>
+                return _changeParameterCommand ?? (_changeParameterCommand = new RelayCommand(obj =>
                 {
                     if (SelectedParameter != null)
                     {
-                        AddChangeParametr change = new AddChangeParametr(ChangeParameter, SelectedParameter, test.BlockName);
+                        AddChangeParametr change = new AddChangeParametr(ChangeParameter, SelectedParameter, _test.BlockName);
                         change.ShowDialog();
                     }
                 }));
             }
         }
 
-        private RelayCommand deleteParameterCommand;
+        private RelayCommand _deleteParameterCommand;
         public RelayCommand DeleteParameterCommand
         {
             get
             {
-                return deleteParameterCommand ?? (deleteParameterCommand = new RelayCommand(obj =>
+                return _deleteParameterCommand ?? (_deleteParameterCommand = new RelayCommand(obj =>
                 {
                     if (SelectedParameter != null)
                     {

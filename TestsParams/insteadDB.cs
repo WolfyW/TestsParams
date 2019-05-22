@@ -5,16 +5,16 @@ namespace TestsParams
 {
     static class InsteadDB
     {
-        private static TestContext context = new TestContext();
+        private static TestContext _DBcontext = new TestContext();
 
         public static IEnumerable<Tests> GetTests()
         {
-            return context.Tests;
+            return _DBcontext.Tests;
         }
 
         public static void AddTest(Tests test)
         {
-            context.Tests.Add(test);
+            _DBcontext.Tests.Add(test);
             foreach (var p in test.Parameters)
             {
                 AddParameter(p);
@@ -24,25 +24,25 @@ namespace TestsParams
 
         public static void DeleteTest(Tests test)
         {
-            context.Tests.Remove(test);
+            _DBcontext.Tests.Remove(test);
             SaveChanges();
         }
 
         public static void AddParameter(Parameters param)
         {
-            context.Parameters.Add(param);
+            _DBcontext.Parameters.Add(param);
             SaveChanges();
         }
 
         public static void DeleteParameter(Parameters param)
         {
-            context.Parameters.Remove(param);
+            _DBcontext.Parameters.Remove(param);
             SaveChanges();
         }
 
         public static void SaveChanges()
         {
-            context.SaveChanges();
+            _DBcontext.SaveChanges();
         }
 
     }
